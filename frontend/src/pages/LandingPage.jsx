@@ -1,10 +1,14 @@
-import { useAuthContext } from '../features/authentication/context/'
+import {
+  Box,
+  Button
+} from '@mui/material'
+import MenuSharpIcon from '@mui/icons-material/MenuSharp';
+
+import Core from '../components/Core/'
 
 export default function LandingPage(){
   
-  const { isAuthenticated } = useAuthContext()
-  
   return (
-    <p>isAuthenticated { `${isAuthenticated}` }</p>
+    <Core />
   )
 }
