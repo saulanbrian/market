@@ -12,7 +12,8 @@ const api = axios.create({
 async function refreshToken(){
   const refresh = localStorage.getItem('REFRESH_TOKEN')
   try{
-    const res = await axios.post(`${apiURL}auth/token/refresh`)
+    const res = await axios.post(`${apiURL}auth/token/refresh`,{
+      refresh,})
     localStorage.setItem('ACCESS_TOKEN',res.data.access)
     localStorage.setItem('REFRESH_TOKEN',res.data.refresh)
     return res.data.access

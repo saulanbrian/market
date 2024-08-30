@@ -1,14 +1,15 @@
 import {
   Box,
-  Button
 } from '@mui/material'
-import MenuSharpIcon from '@mui/icons-material/MenuSharp';
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 
-import Core from '../components/Core/'
+import Navigation from '../components/Navigation'
+
 
 export default function LandingPage(){
   
   return (
-    <Core />
+    <h1>Landing Page</h1>
   )
 }
