@@ -11,6 +11,5 @@ class Product(models.Model):
   description = models.CharField(max_length=200)
   name = models.CharField(max_length=50)
   price = models.IntegerField()
-  isSold = models.BooleanField(default=False)
+  isAvailable = models.BooleanField(default=True)
   seller = models.ForeignKey(User,on_delete=models.CASCADE,related_name='products')
-  buyer = models.ForeignKey(User,on_delete=models.CASCADE,related_name='products_bought',null=True)

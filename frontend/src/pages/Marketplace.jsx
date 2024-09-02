@@ -35,25 +35,25 @@ export default function Marketplace() {
     data && console.log(data)
   },[data])
   
-  return !!data? (
-    <StyledBox id='scrollableDiv'>
-      <InfiniteScrollComponent
-        dataLength={getDataLength(data)}
-        hasMore={hasNextPage}
-        next={fetchNextPage}
-        loader={<p>loading...</p>}
-        endMessage={<p>no more products</p>}
-        scrollableTarget='scrollableDiv'>
-        { data?.pages?.map(page => {
-          return page.results.map(product => (
-            <Product key={product.id} {...product} />
-          ))
-        }) }
-      </InfiniteScrollComponent>
-    </StyledBox>
-  ): error? (
+  return isFetching && !isFetchingNextPage? (
+      <p>loading...</p>
+    ): data? (
+      <StyledBox id='scrollableDiv'>
+        <InfiniteScrollComponent
+          dataLength={getDataLength(data)}
+          hasMore={hasNextPage}
+          next={fetchNextPage}
+          loader={<p>loading...</p>}
+          endMessage={<p>no more products</p>}
+          scrollableTarget='scrollableDiv'>
+          { data?.pages?.map(page => {
+            return page.results.map(product => (
+              <Product key={product.id} {...product} />
+            ))
+          }) }
+        </InfiniteScrollComponent>
+      </StyledBox>
+    ): error && (
     <p>an error has ocurred</p>
-  ): isFetching && (
-    <p>loading...</p>
   )
 }

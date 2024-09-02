@@ -2,7 +2,8 @@ import {
   Card,
   CardMedia,
   CardContent,
-  Typography
+  Typography,
+  useMediaQuery
 } from '@mui/material'
 import ActionDrawer from './ActionDrawer'
 
@@ -14,7 +15,7 @@ import React, { useState } from 'react'
 
 const StyledCardMedia = styled(CardMedia)(({theme}) => ({
   objectFit:'contain',
-  maxWidth:'100%',
+  width:'100%',
 }))
 
 
@@ -28,15 +29,20 @@ export default function Product({
   name,
   description, 
   image, 
-  isSold, 
+  isAvailable, 
   price
 }){
   
+  const onSmallScreen = useMediaQuery(theme => theme.breakpoints.down('sm'))
   const [open,setOpen] = useState(false)
+  
+  function handleClick(){
+    onSmallScreen && setOpen(true)
+  }
 
   return (
     <React.Fragment>
-      <StyledCard onClick={() => setOpen(true)}>
+      <StyledCard onClick={handleClick}>
         <StyledCardMedia src={image} component='img'/>
         <CardContent>
         <Typography variant='h6'>{ name }</Typography>

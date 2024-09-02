@@ -10,6 +10,6 @@ class ProductSerializer(serializers.ModelSerializer):
       'description',
       'image',
       'price',
-      'isSold',
+      'isAvailable',
       'seller'
       )

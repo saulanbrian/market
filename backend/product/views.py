@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.pagination import PageNumberPagination 
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from .models import Product 
 from .serializers import ProductSerializer
@@ -13,4 +13,8 @@ class ProductListAPIView(ListAPIView):
   serializer_class = ProductSerializer
   queryset = Product.objects.all()
   pagination_class = ProductPagination
-  
+
+
+class ProductRetrieveAPIView(RetrieveAPIView):
+  serializer_class = ProductSerializer
+  queryset = Product.objects.all()

@@ -18,6 +18,8 @@ import Logout from './pages/Logout'
 import LandingPage from './pages/LandingPage.jsx'
 import About from './pages/About'
 import Marketplace from './pages/Marketplace.jsx'
+import ProductDetail from './pages/ProductDetail'
+import Orders from './pages/Orders'
 
 import Navigation from './components/Navigation'
 
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
     {
       path:'marketplace',
       element:<Marketplace />
+    },
+    {
+      path:'product/:id',
+      element:<ProductDetail />
+    },
+    {
+      path:'orders',
+      element:<Private><Orders /></Private>
     }
     ]
   },
