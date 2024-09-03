@@ -20,6 +20,7 @@ import About from './pages/About'
 import Marketplace from './pages/Marketplace.jsx'
 import ProductDetail from './pages/ProductDetail'
 import Orders from './pages/Orders'
+import Cart from './pages/Cart'
 
 import Navigation from './components/Navigation'
 
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
     {
       path:'orders',
       element:<Private><Orders /></Private>
+    },
+    {
+      path:'cart',
+      element:<Private><Cart /></Private>
     }
     ]
   },

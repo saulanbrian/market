@@ -11,7 +11,8 @@ urlpatterns = [
     path('auth/token',TokenObtainPairView.as_view()),
     path('auth/token/refresh',TokenRefreshView.as_view()),
     path('products/',include('product.urls')),
-    path('orders/',include('order.urls'))
+    path('orders/',include('order.urls')),
+    path('user_cart/',include('cart.urls'))
 ] + static(
   settings.MEDIA_URL,
   document_root=settings.MEDIA_ROOT

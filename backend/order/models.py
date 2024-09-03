@@ -9,7 +9,7 @@ class Order(models.Model):
   choices = [
     ('to_receive','to_receive'),
     ('received','received'),
-    ('canceled','canceled')
+    ('cancelled','cancelled')
   ]
   
   id = models.UUIDField(default=uuid.uuid4,primary_key=True)
@@ -31,3 +31,6 @@ class Order(models.Model):
       related_name='orders',
       null=True
     )
+    
+  date_placed = models.DateTimeField(auto_now_add=True)
+  

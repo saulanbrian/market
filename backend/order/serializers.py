@@ -16,6 +16,7 @@ class OrderSerializer(serializers.ModelSerializer):
         'product_id',
         'product_name',
         'product_image',
+        'date_placed'
       )
       
   def get_product_id(self,obj):

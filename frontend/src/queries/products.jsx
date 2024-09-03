@@ -27,3 +27,14 @@ export const useGetProductDetail = (id) => {
     }
   })
 }
+
+
+export const useGetProductsOnCart = () =>{
+  return useQuery({
+    queryKey:['my-cart'],
+    queryFn:async() => {
+      const res = await api.get('user_cart/')
+      return res.data
+    }
+  })
+}
