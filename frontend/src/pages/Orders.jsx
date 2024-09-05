@@ -17,20 +17,25 @@ import PropTypes from 'prop-types'
 const StyledBox = styled(Box)(({theme}) => ({
   display:'flex',
   flexDirection:'column',
-  gap:2,
-  padding:'2 4'
+  gap:4,
+  padding:8,
+  alingItems:'center',
+  justifyContent:'flex-start',
+  [theme.breakpoints.up('md')]:{
+    maxWidth:'35vw',
+  }
 }))
 
 
 function TabPanel(props){
   const { index, value, data, filter} = props
   
-  return (
-    <StyledBox hidden={index !== value}>
+  return index === value && (
+    <StyledBox>
       { index === value && (
         data?.filter(order => filter? order.status === filter: order).map((order,index) => (
-          <Order key={index} {...order} />
-        ))
+            <Order key={index} {...order} />
+          ))
       )}
     </StyledBox>
   )
@@ -41,7 +46,7 @@ function TabPanel(props){
 TabPanel.propTypes = {
   index:PropTypes.number.isRequired, 
   value:PropTypes.number.isRequired,
-  data:PropTypes.object.isRequired, 
+  data:PropTypes.array.isRequired, 
   filter:PropTypes.string
 }
 
@@ -62,24 +67,23 @@ export default function Orders(){
     setValue(val)
   }
   
-  return isLoading? ( 
-    <p>retrieving orders</p>
-  ): data? (
+  return ( 
     <Box>
       <Tabs value={value }onChange={handleChange}>
-        { filters.map(filter => <Tab label={filter}/>)}
+        { filters.map((filter,i) => <Tab label={filter} key={i}/>)}
       </Tabs>
-      { filters.map((filter,index) => (
-        <TabPanel 
-          value={value} 
-          index={index}
-          data={data}
-          key={index} 
-          filter={filter !== 'all' && filter } />
-      )) }
+        { !!data? filters.map((filter,index) => (
+          <TabPanel 
+            value={value} 
+            index={index}
+            data={data}
+            key={index} 
+            filter={filter !== 'all'? filter: '' } />
+        )): isLoading? (
+          <p>loading...</p>
+        ): error && (
+          <p>an error has occured</p>
+        ) }
     </Box>
-  ): (
-    <p>an error has occured</p>
   )
-  
 }

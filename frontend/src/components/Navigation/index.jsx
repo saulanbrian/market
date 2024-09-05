@@ -11,7 +11,7 @@ import { routes } from '../../constants'
 import { useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 
-import React from 'react'
+import React,{ useState } from 'react'
 
 import DynamicMenu from './DynamicMenu'
 
@@ -25,6 +25,7 @@ const StyledNavigationLink = styled(NavigationLink)(({theme}) => ({
 const StyledAppBar = styled(AppBar)(({theme}) => ({
   zIndex:0,
   position:'sticky',
+  boxShadow:'none'
 }))
 
 export default function Navigation(){

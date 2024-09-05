@@ -7,6 +7,7 @@ class OrderSerializer(serializers.ModelSerializer):
   product_id = serializers.SerializerMethodField()
   product_name = serializers.SerializerMethodField()
   product_image = serializers.SerializerMethodField()
+  product_description = serializers.SerializerMethodField()
   
   class Meta:
     model = Order  
@@ -16,7 +17,8 @@ class OrderSerializer(serializers.ModelSerializer):
         'product_id',
         'product_name',
         'product_image',
-        'date_placed'
+        'date_placed',
+        'product_description'
       )
       
   def get_product_id(self,obj):
@@ -27,3 +29,6 @@ class OrderSerializer(serializers.ModelSerializer):
     
   def get_product_image(self,obj):
     return obj.product.image.url
+    
+  def get_product_description(self,obj):
+    return obj.product.description

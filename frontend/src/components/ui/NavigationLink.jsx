@@ -7,7 +7,7 @@ const StyledButton = styled(Button)(({theme}) => ({
 
 export default function NavigationLink({name,onClick,className}){
   return (
-    <StyledButton onClick={onClick} className={className}>
+    <StyledButton name={name} onClick={onClick} className={className}>
       { name } 
     </StyledButton>
   )

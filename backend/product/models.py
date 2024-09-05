@@ -13,3 +13,6 @@ class Product(models.Model):
   price = models.IntegerField()
   isAvailable = models.BooleanField(default=True)
   seller = models.ForeignKey(User,on_delete=models.CASCADE,related_name='products')
+  
+  def __str__(self):
+    return f'<product:{self.name}>'

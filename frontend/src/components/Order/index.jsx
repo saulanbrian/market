@@ -1,26 +1,59 @@
 import {
   Paper, 
-  Box
+  Box,
+  Typography,
+  List,
+  ListItemText,
+  ListItem
 } from '@mui/material'
 
 import { styled } from '@mui/system'  
 
 
 const StyledPaper = styled(Paper)(({theme}) => ({
-  borderRadius:16,
+  padding:4,
   display:'flex',
-  maxHeight:200,
+  height:100,
   flexWrap:'nowrap',
-  gap:2
+  gap:4,
+  alignItems:'center',
+  border:'1px solid black',
+  borderRadius:4,
+  [theme.breakpoints.up('md')]:{
+  }
 }))
 
 const StyledImage = styled('img')(({theme}) => ({
   objectFit:'contain',
-  maxHeight:'100%',
-  width:'100%'
+  height:100
 }))
 
+
+const ImageContainer = styled(Box)(({theme}) => ({
+  width:'40%',
+  border:'1px solid black',
+  flexShrink:0,
+  maxHeight:'100%',
+  overflow:'hidden',
+  display:'flex',
+  justifyContent:'center'
+}))
+
+
+const StyledList = styled(List)(({theme}) => ({
+  all:'unset'
+}))
+
+
+const secondaryTypographyProps = {
+  overflow:'hidden',
+  textOverflow:'ellipsis',
+  whiteSpace:'nowrap'
+}
+
+
 const apiUrl = import.meta.env.VITE_API_URL
+
 
 export default function Order(props){
   const {
@@ -29,26 +62,26 @@ export default function Order(props){
     product_id:productId, 
     product_name:productName,
     product_image:productImage,
+    product_description:description,
     date_placed:datePlaced
   } = props
   
   return (  
     <StyledPaper>
-      <Box 
-        sx={{
-          width:'40%',
-          border:'1px solid black',
-          maxHeight:'90%',
-          borderRadius:4,
-          overflow:'hidden',
-          margin:1
-        }}>
+      <ImageContainer>
         <StyledImage src={apiUrl + productImage} />
-      </Box>
-      <Box sx={{minWidth:'60%'}}>
-        <h1>{productName}</h1>
-        <p>{datePlaced.split('T')[0]}</p>
-      </Box>
+      </ImageContainer>
+      <StyledList>
+        <ListItem disableGutters>
+          <ListItemText 
+            primary={productName} 
+            secondary={description}
+            secondaryTypographyProps={secondaryTypographyProps}/>
+        </ListItem>
+        <Typography paragraph sx={{marginTop:'auto'}}>
+          {datePlaced.split('T')[0]}
+        </Typography>
+      </StyledList>
     </StyledPaper>
   )
 }
