@@ -40,16 +40,13 @@ const ImageContainer = styled(Box)(({theme}) => ({
 }))
 
 
-const StyledList = styled(List)(({theme}) => ({
-  all:'unset'
+const StyledListItemText = styled(ListItemText)(({theme}) => ({
+  '& .MuiListItemText-secondary':{
+    overflow:'hidden',
+    textOverflow:'ellipsis',
+    whiteSpace:'nowrap'
+  }
 }))
-
-
-const secondaryTypographyProps = {
-  overflow:'hidden',
-  textOverflow:'ellipsis',
-  whiteSpace:'nowrap'
-}
 
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -71,17 +68,18 @@ export default function Order(props){
       <ImageContainer>
         <StyledImage src={apiUrl + productImage} />
       </ImageContainer>
-      <StyledList>
-        <ListItem disableGutters>
-          <ListItemText 
-            primary={productName} 
-            secondary={description}
-            secondaryTypographyProps={secondaryTypographyProps}/>
-        </ListItem>
-        <Typography paragraph sx={{marginTop:'auto'}}>
+      <Box sx={{maxWidth:'60%',display:'flex',flexDirection:'column'}}>
+        <List disablePadding sx={{height:85}}>
+          <ListItem disablePadding>
+            <StyledListItemText 
+              primary={productName} 
+              secondary={description} />
+          </ListItem>
+        </List>
+        <Typography variant='caption'>
           {datePlaced.split('T')[0]}
         </Typography>
-      </StyledList>
+      </Box>
     </StyledPaper>
   )
 }

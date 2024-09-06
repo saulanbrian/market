@@ -68,7 +68,7 @@ export default function Orders(){
   }
   
   return ( 
-    <Box>
+    <Box sx={{maxWidth:'100vw'}}>
       <Tabs value={value }onChange={handleChange}>
         { filters.map((filter,i) => <Tab label={filter} key={i}/>)}
       </Tabs>

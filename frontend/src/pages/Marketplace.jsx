@@ -3,8 +3,9 @@ import { useGetProducts } from '../queries/products'
 import { getDataLength } from '../utils'
 import { useEffect } from 'react'
 
-import { Box } from '@mui/material'
+import { Box, useMediaQuery } from '@mui/material'
 import { styled } from '@mui/system'
+import Masonry from '@mui/lab/Masonry'
 
 import Product from '../components/Product'
 
@@ -31,29 +32,33 @@ export default function Marketplace() {
     data
   } = useGetProducts()
   
+  const onMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  
   useEffect(() => {
     data && console.log(data)
   },[data])
   
-  return isFetching && !isFetchingNextPage? (
-      <p>loading...</p>
-    ): data? (
+  return (
       <StyledBox id='scrollableDiv'>
         <InfiniteScrollComponent
-          dataLength={getDataLength(data)}
+          dataLength={data? getDataLength(data): 0}
           hasMore={hasNextPage}
           next={fetchNextPage}
           loader={<p>loading...</p>}
           endMessage={<p>no more products</p>}
           scrollableTarget='scrollableDiv'>
-          { data?.pages?.map(page => {
+          <Masonry columns={onMobile? 2: 4} spacing={1}>
+          { data? data?.pages?.map(page => {
             return page.results.map(product => (
               <Product key={product.id} {...product} />
             ))
-          }) }
+          }): isFetching? (
+            <p>loading....</p>
+          ): errror && (
+            <p>an error has occured</p>
+          )}
+          </Masonry>
         </InfiniteScrollComponent>
       </StyledBox>
-    ): error && (
-    <p>an error has ocurred</p>
-  )
+    )
 }
