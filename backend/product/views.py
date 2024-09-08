@@ -11,11 +11,11 @@ class ProductPagination(PageNumberPagination):
   
 class ProductListAPIView(ListAPIView):
   serializer_class = ProductSerializer
-  queryset = Product.objects.all()
+  queryset = Product.objects.all().order_by('id')
   pagination_class = ProductPagination
 
 
 class ProductRetrieveAPIView(RetrieveAPIView):
   serializer_class = ProductSerializer
-  queryset = Product.objects.all()
+  queryset = Product.objects.all().order_by('id')
   

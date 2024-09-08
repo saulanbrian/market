@@ -25,14 +25,16 @@ const StyledCard = styled(Card)(({theme}) => ({
 }))
 
 
-export default function Product({
-  id,
-  name,
-  description, 
-  image, 
-  isAvailable, 
-  price
-}){
+export default function Product(props){
+  
+  const {
+    id,
+    name,
+    description, 
+    image, 
+    isAvailable, 
+    price
+  } = props;
   
   const onSmallScreen = useMediaQuery(theme => theme.breakpoints.down('sm'))
   const navigate = useNavigate()
@@ -72,7 +74,7 @@ export default function Product({
   
   
   useEffect(() => {
-    if(holdDuration >= 8) setOpen(true)
+    if(holdDuration >= 5) setOpen(true)
   },[holdDuration])
 
   useEffect(() => {

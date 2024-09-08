@@ -1,6 +1,8 @@
 import {
   useInfiniteQuery,
-  useQuery
+  useQuery,
+  useMutation,
+  useQueryClient
 } from '@tanstack/react-query' 
 
 import api from '../api'
@@ -35,6 +37,27 @@ export const useGetProductsOnCart = () =>{
     queryFn:async() => {
       const res = await api.get('user_cart/')
       return res.data
+    }
+  })
+}
+
+
+export const useAddProductToCart = () => {
+  
+  const client = useQueryClient()
+  
+  return useMutation({
+    mutationKey:['my-cart'],
+    mutationFn:async(id) => {
+      const res = await api.post('user_cart/add',{
+        product:id
+      })
+      return res.data
+    },
+    onSuccess:(product) => {
+      client.setQueryData(products => {
+        [...products,product]
+      })
     }
   })
 }
