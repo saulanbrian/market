@@ -11,6 +11,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 import AuthContextProvider from './features/authentication/context'
+import CartContextProvider from './features/cart/context'
 import Private from './features/authentication/wrapper/Private.jsx'
 
 import Login, { LoginAction } from './pages/Login'
@@ -74,7 +75,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
         <QueryClientProvider client={client}>
-          <RouterProvider router={router} />
+          <CartContextProvider>
+            <RouterProvider router={router} />
+          </CartContextProvider>
         </QueryClientProvider>
       </AuthContextProvider>
      </ThemeProvider>

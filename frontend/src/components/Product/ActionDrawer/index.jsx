@@ -19,14 +19,23 @@ export default function ActionDrawer({open,onClose,productId}){
     isPending
   } = useAddProductToCart()
   
+  function handleAddToCartClick(){
+    onClose()
+    mutate(productId)
+  }
+  
+  function handleBuyClick(){
+    onClose()
+  }
+  
   
   return (
     <Drawer open={open} onClose={onClose} anchor='bottom'>
       <List>
-        <ListItemButton onClick={() => mutate(productId)}>
+        <ListItemButton onClick={handleAddToCartClick}>
           Add to Cart
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton onClick={handleBuyClick}>
           Buy now
         </ListItemButton>
       </List>
