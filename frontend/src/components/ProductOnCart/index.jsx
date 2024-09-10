@@ -23,11 +23,9 @@ const StyledPaper = styled(Paper)(({theme,selected}) => ({
   display:'flex',
   alignItems:'center',
   padding:4,
+  width:'100%',
   backgroundColor:selected? theme.palette.primary.main: 'inherit',
   '& > *':{
-  },
-  [theme.breakpoints.up('md')]:{
-    width:400
   },
 }))
 
