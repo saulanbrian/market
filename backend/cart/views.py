@@ -39,3 +39,24 @@ def add_to_cart(request):
     
     return Response(status=status.HTTP_400_BAD_REQUEST)
   return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+  
+
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def remove_products_to_cart(request):
+  product_ids = request.data.get('products',None)
+  
+  if product_ids:
+    cart = Cart.objects.prefetch_related('products').get(user__id=request.user.id)
+    removed_products = []
+    for product_id in product_ids:
+      try:
+        product = cart.products.get(pk=product_id)
+        removed_products.append(product)
+        cart.products.remove(product)
+      except Product.DoesNotExist: 
+        continue
+    serializer = ProductSerializer(removed_products,many=True)
+    return Response(serializer.data,status=status.HTTP_200_OK)
+  
+  return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -61,3 +61,29 @@ export const useAddProductToCart = () => {
     }
   })
 }
+
+
+export const useRemoveProductsFromCart = () => {
+  
+  const queryClient = useQueryClient()
+  
+  return useMutation({
+    mutationKey:['my-cart'],
+    mutationFn:async(productIds) => {
+      const res = await api.post('user_cart/remove',{
+        products:productIds
+        })
+      return res.data
+    },
+    onSuccess:(products) => {
+      queryClient.setQueryData(['my-cart'],prev => {
+        const finalProducts = [
+        ...prev.filter(productFromPrev => {
+            return products.some(product => product.id === productFromPrev.id)? false: true
+          })
+        ]
+        return finalProducts
+      })
+    }
+  })
+}
