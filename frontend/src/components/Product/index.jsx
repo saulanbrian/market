@@ -3,6 +3,7 @@ import {
   CardMedia,
   CardContent,
   Typography,
+  ButtonBase,
   useMediaQuery,
 } from '@mui/material'
 import ActionDrawer from './ActionDrawer'
@@ -74,7 +75,7 @@ export default function Product(props){
   
   
   useEffect(() => {
-    if(holdDuration >= 5) setOpen(true)
+    if(holdDuration >= 8) setOpen(true)
   },[holdDuration])
 
   useEffect(() => {
@@ -83,16 +84,21 @@ export default function Product(props){
 
   return (
     <React.Fragment>
-      <StyledCard 
-        onClick={handleClick}
-        onTouchStart={handleTouchStart} 
-        onTouchEnd={handleTouchEnd}>
-        <StyledCardMedia src={image} component='img'/>
-        <CardContent>
-        <Typography variant='h6'>{ name }</Typography>
-        <p>${price}</p>
-        </CardContent>
-      </StyledCard>
+      <ButtonBase>
+        <StyledCard 
+          onClick={handleClick}
+          onTouchStart={handleTouchStart} 
+          onTouchEnd={handleTouchEnd}>
+          <StyledCardMedia 
+            loading='lazy'
+            src={image} 
+            component='img' />
+          <CardContent>
+          <Typography variant='h6'>{ name }</Typography>
+          <p>${price}</p>
+          </CardContent>
+        </StyledCard>
+      </ButtonBase>
       { open && (
         <ActionDrawer 
           open={open} 

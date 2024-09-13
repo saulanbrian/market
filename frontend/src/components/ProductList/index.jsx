@@ -7,7 +7,6 @@ import {
 } from '@mui/material'
 
 import { styled } from '@mui/system'
-import { useState, useEffect } from 'react'
 
 
 const ProductImage = styled('img')(({theme}) => ({
@@ -18,13 +17,12 @@ const ProductImage = styled('img')(({theme}) => ({
 }))
 
 
-const StyledPaper = styled(Paper)(({theme,selected}) => ({
+const StyledPaper = styled(Paper)(({theme}) => ({
   height:100,
   display:'flex',
   alignItems:'center',
   padding:4,
   width:'100%',
-  backgroundColor:selected? theme.palette.primary.main: 'inherit',
   '& > *':{
   },
 }))
@@ -38,6 +36,7 @@ const ProductDetail = styled(Box)(({theme}) => ({
   height:'95%'
 }))
 
+
 const Header = styled(ListItemText)(({theme}) => ({
   '& .MuiListItemText-secondary':{
     overflow:'hidden',
@@ -46,36 +45,32 @@ const Header = styled(ListItemText)(({theme}) => ({
   }
 }))
 
-export default function ProductOnCart(props){
+
+export default function ProductList(props){
   
   const {
-    id,
-    name: productName,
-    description,
-    image,
-    price,
-    onClick,
-    selected,
-    selectFn
+    products,
+    productOnClick,
+    className,
+    sx
   } = props;
   
   
-  function handleSelect(){
-    selectFn(id)
-  }
-  
-  
   return (
-    <StyledPaper selected={selected} onClick={handleSelect}> 
-      <ProductImage src={image} onClick={onClick}/>
-      <ProductDetail>
-        <Header 
-          primary={productName} 
-          secondary={description}/>
-        <Typography variant='caption'>
-          ${ price }
-        </Typography>
-      </ProductDetail>
-    </StyledPaper>
+    <Box sx={sx} className={className}>
+    { products.map((product,index) => (
+      <StyledPaper onClick={productOnClick} key={index}> 
+        <ProductImage src={product.image}/>
+        <ProductDetail>
+          <Header 
+            primary={product.name} 
+            secondary={product.description}/>
+          <Typography variant='caption'>
+            ${ product.price }
+          </Typography>
+        </ProductDetail>
+      </StyledPaper>
+    ) )}
+    </Box>
   )
 }

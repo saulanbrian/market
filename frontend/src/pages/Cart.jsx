@@ -63,7 +63,7 @@ export default function Cart(){
   }
   
   return (
-    <Box sx={{display:'flex'}}>
+    <Box sx={{display:'flex',justifyContent:'center'}}>
       <ProductContainer>
         { !!data? (
           data.map(product => (
