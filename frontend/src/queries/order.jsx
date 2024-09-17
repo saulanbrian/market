@@ -1,4 +1,8 @@
-import { useQuery, useMutation } from '@tanstack/react-query' 
+import { 
+  useQuery,
+  useMutation,
+  useQueryClient
+} from '@tanstack/react-query' 
 import api from '../api'
 
 export const useGetOrders = () => {
@@ -19,5 +23,24 @@ export const usePlaceOrder = () => {
         products:products})
       return res.data
     },
+  })
+}
+
+
+export const useCancelOrder = () => {
+  
+  const client = useQueryClient()
+  
+  return useMutation({
+    mutationKey:['my-orders'],
+    mutationFn:async(orderId) => {
+      const res = await api.post('orders/cancel',{
+        order:orderId
+      })
+      return res.data
+    },
+    onSuccess:() => {
+      client.invalidateQueries(['my-orders'])
+    }
   })
 }

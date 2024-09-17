@@ -4,20 +4,28 @@ import {
   Typography,
   List,
   ListItemText,
-  ListItem
+  ListItem,
+  IconButton
 } from '@mui/material'
 
+import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
+import KeyboardArrowUpSharpIcon from '@mui/icons-material/KeyboardArrowUpSharp';
+import ActionContainer from './ActionContainer'
+
 import { styled } from '@mui/system'  
+import { useState } from "react"
+import { useCancelOrder } from '../../queries/order'
 
 
 const StyledPaper = styled(Paper)(({theme}) => ({
   padding:4,
   display:'flex',
-  height:100,
-  flexWrap:'nowrap',
+  height:'100%',
+  flexWrap:'wrap',
   gap:4,
   alignItems:'center',
   border:'1px solid black',
+  position:'relative',
   borderRadius:4,
   [theme.breakpoints.up('md')]:{
   }
@@ -53,6 +61,15 @@ const apiUrl = import.meta.env.VITE_API_URL
 
 
 export default function Order(props){
+  
+  const [open,setOpen] = useState(false)
+  const {
+    mutate:cancelOrder,
+    isPending:orderBeingCancelled, 
+    success, 
+    error
+  } = useCancelOrder()
+  
   const {
     id,
     status,
@@ -63,12 +80,18 @@ export default function Order(props){
     date_placed:datePlaced
   } = props
   
+  
+  function handleClick(){
+    setOpen(!open)
+  }
+
+  
   return (  
     <StyledPaper>
       <ImageContainer>
         <StyledImage src={apiUrl + productImage} />
       </ImageContainer>
-      <Box sx={{maxWidth:'60%',display:'flex',flexDirection:'column'}}>
+      <Box sx={{flexGrow:1,display:'flex',flexDirection:'column'}}>
         <List disablePadding sx={{height:85}}>
           <ListItem disablePadding>
             <StyledListItemText 
@@ -80,6 +103,18 @@ export default function Order(props){
           {datePlaced.split('T')[0]}
         </Typography>
       </Box>
+      <IconButton 
+        sx={{position:'absolute',right:8,bottom:0}}
+        onClick={handleClick}>
+        { open? (
+          <KeyboardArrowUpSharpIcon />
+        ) : <KeyboardArrowDownSharpIcon /> }
+      </IconButton>
+      { status === 'to_receive' && (
+        <ActionContainer 
+          open={open}
+          onCancel={() => cancelOrder(id)}/>
+      ) }
     </StyledPaper>
   )
 }

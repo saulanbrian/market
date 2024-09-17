@@ -28,14 +28,20 @@ const StyledBox = styled(Box)(({theme}) => ({
 
 
 function TabPanel(props){
+  
   const { index, value, data, filter} = props
+  const orders = data?.filter(order => filter? order.status === filter: true)
+  
+  console.log(orders)
   
   return index === value && (
     <StyledBox>
       { index === value && (
-        data?.filter(order => filter? order.status === filter: order).map((order,index) => (
-            <Order key={index} {...order} />
+        orders.length >= 1? (
+          orders.map(order => (
+            <Order key={order.id} {...order} />
           ))
+        ): <p>no {filter} orders</p>
       )}
     </StyledBox>
   )
