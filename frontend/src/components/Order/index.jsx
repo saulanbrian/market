@@ -14,7 +14,7 @@ import ActionContainer from './ActionContainer'
 
 import { styled } from '@mui/system'  
 import { useState } from "react"
-import { useCancelOrder } from '../../queries/order'
+import { useCancelOrder, useMarkOrderAsReceived } from '../../queries/order'
 
 
 const StyledPaper = styled(Paper)(({theme}) => ({
@@ -66,9 +66,17 @@ export default function Order(props){
   const {
     mutate:cancelOrder,
     isPending:orderBeingCancelled, 
-    success, 
-    error
+    success:orderCancelled, 
+    error:cancelError
   } = useCancelOrder()
+  
+  const {
+    mutate:receiveOrder,
+    isPending:orderBeingMarkedAsReceived, 
+    success:orderMarkedAsReceived, 
+    error:orderMarkAsReceiveError
+  } = useMarkOrderAsReceived()
+  
   
   const {
     id,
@@ -104,7 +112,7 @@ export default function Order(props){
         </Typography>
       </Box>
       <IconButton 
-        sx={{position:'absolute',right:8,bottom:0}}
+        sx={{position:'absolute',right:8,bottom:0,display:status !== 'to_receive' && 'none'}}
         onClick={handleClick}>
         { open? (
           <KeyboardArrowUpSharpIcon />
@@ -113,7 +121,8 @@ export default function Order(props){
       { status === 'to_receive' && (
         <ActionContainer 
           open={open}
-          onCancel={() => cancelOrder(id)}/>
+          onCancel={() => cancelOrder(id)}
+          onReceive={() => receiveOrder(id)}/>
       ) }
     </StyledPaper>
   )

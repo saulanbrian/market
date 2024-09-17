@@ -10,14 +10,15 @@ export default function ActionDrawer(props){
   
   const {
     open,
-    onCancel
+    onCancel,
+    onReceive
   } = props;
   
   return (
     <Collapse in={open}>
       <Box sx={{padding:2,paddingLeft:0}}>
         <Button onClick={onCancel}>cancel</Button>
-        <Button>mark as recieved</Button>
+        <Button onClick={onReceive}>mark as recieved</Button>
       </Box>
     </Collapse>
   )

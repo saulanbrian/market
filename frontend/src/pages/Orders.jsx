@@ -32,8 +32,6 @@ function TabPanel(props){
   const { index, value, data, filter} = props
   const orders = data?.filter(order => filter? order.status === filter: true)
   
-  console.log(orders)
-  
   return index === value && (
     <StyledBox>
       { index === value && (

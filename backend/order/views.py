@@ -52,3 +52,18 @@ def cancel_order(request):
     return Response(serializer.data,status=status.HTTP_200_OK)
   
   return Response(status=status.HTTP_400_BAD_REQUEST)
+  
+  
+@permission_classes([IsAuthenticated])
+@api_view(['POST'])
+def mark_order_as_recieved(request):
+  order_id = request.data.get('order',None)
+  
+  if order_id:
+    order = get_object_or_404(Order,pk=order_id)
+    order.status = 'received'
+    order.save()
+    serializer = OrderSerializer(order)
+    return Response(serializer.data,status=status.HTTP_200_OK)
+  
+  return Response(status=status.HTTP_400_BAD_REQUEST)

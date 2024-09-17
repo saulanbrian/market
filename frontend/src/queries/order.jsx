@@ -44,3 +44,21 @@ export const useCancelOrder = () => {
     }
   })
 }
+
+
+export const useMarkOrderAsReceived = () => {
+  
+  const client = useQueryClient()
+  
+  return useMutation({
+    mutationKey:['my-orders'],
+    mutationFn:async(orderId) => { 
+      const res = await api.post('orders/receive',{
+        order:orderId})
+      return res.data
+    },
+    onSuccess:() => {
+      client.invalidateQueries()
+    }
+  })
+}
