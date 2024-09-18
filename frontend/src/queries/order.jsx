@@ -16,6 +16,9 @@ export const useGetOrders = () => {
 }
 
 export const usePlaceOrder = () => {
+  
+  const client = useQueryClient()
+  
   return useMutation({
     mutationFn:['my-orders'],
     mutationFn:async(products) => {
@@ -23,6 +26,17 @@ export const usePlaceOrder = () => {
         products:products})
       return res.data
     },
+    onSuccess:(placedOrders) => {
+      client.setQueryData(['my-cart'], prev => {
+        return [
+        ...prev.filter(orderOnCart => (
+            placedOrders.some(order => order.id === orderOnCart.id?
+              false: true
+            )
+          ))
+        ]
+      })
+    }
   })
 }
 

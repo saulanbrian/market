@@ -9,7 +9,7 @@ from .models import Order
 from product.models import Product
 from .serializers import OrderSerializer
 from product.serializers import ProductSerializer
-
+from cart.models import Cart
 
 
 class OrderListAPIView(ListAPIView):
@@ -25,6 +25,10 @@ class OrderListAPIView(ListAPIView):
 @api_view(['POST'])
 def place_order(request):
   user = request.user
+  cart = get_object_or_404(
+    Cart.objects.prefetch_related('products'),
+    user__id=user.id
+  )
   product_ids = request.data.get('products',None)
   
   if product_ids:
@@ -33,6 +37,7 @@ def place_order(request):
       product = get_object_or_404(Product,pk=product_id)
       order = Order.objects.create(buyer=user,product=product)
       orders.append(order)
+      cart.products.remove(product)
     serializer = OrderSerializer(orders,many=True)
     return Response(serializer.data,status=status.HTTP_201_CREATED)
     

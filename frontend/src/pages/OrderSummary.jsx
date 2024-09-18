@@ -12,6 +12,7 @@ import { useCartContext } from '../features/cart/context'
 import { usePlaceOrder } from '../queries/order'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
 
 
 const StyledProductList = styled(ProductList)(({theme}) => ({
@@ -32,9 +33,13 @@ export default function OrderSummary(){
   const { selectedProducts } = useCartContext()
   const navigate = useNavigate()
   const client = useQueryClient()
-  const { mutate } = usePlaceOrder()
+  const { mutate, status } = usePlaceOrder()
   
-  const productsOnCart = client.getQueryData(['my-cart'])
+  const productsOnCart = client.getQueryData(['my-cart']) || []
+  
+  useEffect(() => {
+    status === 'success' && navigate('/orders')
+  },[status])
   
   const products = [
     ...productsOnCart?.filter(product => (
@@ -48,24 +53,21 @@ export default function OrderSummary(){
         selectedProducts.some(id => product.id === id)
       ))
     ]: []
-    
     let total = 0
-    
     for(let product of products){
       total += product.price
     }
-    
     return total;
   }
   
   
-  return selectedProducts?.length >= 1? (
+  return selectedProducts &&selectedProducts?.length >= 1? (
     <Box>
-      <Typography>total: {getTotalPrice()}</Typography>
+      <Typography>total: { getTotalPrice()}</Typography>
       <StyledProductList products={products} />
       <Button onClick={() => mutate(selectedProducts)}>
         place order
       </Button>
     </Box>
-  ): <Navigate to='/' />
+  ): <Navigate to='/cart' />
 }

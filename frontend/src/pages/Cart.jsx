@@ -66,14 +66,16 @@ export default function Cart(){
     <Box sx={{display:'flex',justifyContent:'center'}}>
       <ProductContainer>
         { !!data? (
-          data.map(product => (
-            <ProductOnCart 
-              {...product} 
-              key={product.id}
-              onClick={() => navigate('/product/' + product.id)} 
-              selectFn={handleSelect}
-              selected={selectedProducts.some(id => id === product.id)}/>
-          ))
+          data?.length >= 1?(
+            data.map(product => (
+              <ProductOnCart 
+                {...product} 
+                key={product.id}
+                onClick={() => navigate('/product/' + product.id)} 
+                selectFn={handleSelect}
+                selected={selectedProducts.some(id => id === product.id)}/>
+            ))
+          ): <p>no products on cart</p>
         ): isLoading? (
           <p>loading...</p>
         ): error && (
