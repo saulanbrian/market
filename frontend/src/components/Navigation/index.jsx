@@ -6,7 +6,7 @@ import {
 import NavigationLink from '../ui/NavigationLink'
 import { styled } from '@mui/system'
 
-import { routes } from '../../constants'
+import { mainRoutes } from '../../constants'
 
 import { useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
@@ -37,7 +37,7 @@ export default function Navigation(){
       <StyledAppBar>
         <Toolbar>
           <DynamicMenu />
-          {routes.map(({name,route},index) => (
+          {mainRoutes.map(({name,route},index) => (
               <StyledNavigationLink 
                 key={index}
                 name={name} 

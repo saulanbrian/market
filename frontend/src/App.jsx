@@ -25,6 +25,7 @@ import Cart from './pages/Cart'
 import OrderSummary from './pages/OrderSummary'
 import SellingPage from './pages/SellingPage'
 import MyProducts from './pages/MyProducts'
+import Dashboard from './pages/Dashboard'
 
 import Navigation from './components/Navigation'
 
@@ -50,12 +51,22 @@ const router = createBrowserRouter([
       element:<ProductDetail />
     },
     {
-      path:'orders',
-      element:<Private><Orders /></Private>
-    },
-    {
-      path:'cart',
-      element:<Private><Cart /></Private>
+      path:'dashboard',
+      element:<Private><Dashboard /></Private>,
+      children:[
+        {
+          path:'orders',
+          element:<Private><Orders /></Private>
+        },
+        {
+          path:'cart',
+          element:<Private><Cart /></Private>
+        },
+        {
+          path:'my-products',
+          element:<Private><MyProducts/></Private>
+        }
+      ]
     },
     {
       path:'order-summary',
@@ -65,10 +76,6 @@ const router = createBrowserRouter([
       path:'sell',
       element:<Private><SellingPage/></Private>
     },
-    {
-      path:'my-products',
-      element:<Private><MyProducts/></Private>
-    }
     ]
   },
   {

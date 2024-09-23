@@ -2,7 +2,7 @@ import {
   Tabs, 
   Tab,
   Box,
-  Typography
+  Typography,
 } from '@mui/material'
 import Order from '../components/Order'
 

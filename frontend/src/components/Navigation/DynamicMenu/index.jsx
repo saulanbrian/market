@@ -9,7 +9,7 @@ import { styled } from '@mui/system'
 import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { routes } from '../../../constants'
+import { mainRoutes } from '../../../constants'
 
 
 const StyledIconButton = styled(IconButton)(({theme}) => ({

@@ -32,8 +32,8 @@ export default function MyProducts() {
   
   const navigate = useNavigate()
   
-  function handleClick(e){
-    navigate('/product/' + e.target.id)
+  function handleClick(product){
+    product && navigate('/product/' + product.id)
   }
   
   return (

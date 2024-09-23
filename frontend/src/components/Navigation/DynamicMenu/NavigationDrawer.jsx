@@ -2,7 +2,7 @@ import { Drawer } from '@mui/material'
 import { styled } from '@mui/system'
 import NavigationButton from '../../ui/NavigationButton'
 
-import { routes } from '../../../constants'
+import { mainRoutes } from '../../../constants'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -17,7 +17,7 @@ export default function NavigationDrawer({open,onClose}){
 
   return (
     <StyledDrawer open={open} onClose={onClose}>
-      { routes.map(({name,route},index) => (
+      { mainRoutes.map(({name,route},index) => (
         <NavigationButton 
           key={index}
           onClick={() => {

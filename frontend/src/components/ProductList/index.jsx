@@ -24,14 +24,16 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   padding:4,
   width:'100%',
   '& > *':{
+
   },
 }))
 
 
 const ProductDetail = styled(Box)(({theme}) => ({
   display:'flex',
-  width:70,
+  width:'100%',
   padding:4,
+  overflow:'hidden',
   flexDirection:'column',
   height:'95%'
 }))
@@ -42,6 +44,13 @@ const Header = styled(ListItemText)(({theme}) => ({
     overflow:'hidden',
     textOverflow:'ellipsis',
     whiteSpace:'nowrap',
+    width:'100%',
+  },
+  '& .MuiListItemText-secondary':{
+    overflow:'hidden',
+    textOverflow:'ellipsis',
+    whiteSpace:'nowrap',
+    width:'100%'
   }
 }))
 
@@ -61,13 +70,14 @@ export default function ProductList(props){
     { products.map((product,index) => (
       <StyledPaper 
         id={product.id} 
-        onClick={productOnClick} 
+        onClick={() => productOnClick(product)} 
         key={index}> 
         <ProductImage src={product.image}/>
         <ProductDetail>
           <Header 
             primary={product.name} 
-            secondary={product.description}/>
+            secondary={product.description}
+            />
           <Typography variant='caption'>
             ${ product.price }
           </Typography>
