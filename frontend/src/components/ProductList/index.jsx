@@ -59,7 +59,10 @@ export default function ProductList(props){
   return (
     <Box sx={sx} className={className}>
     { products.map((product,index) => (
-      <StyledPaper onClick={productOnClick} key={index}> 
+      <StyledPaper 
+        id={product.id} 
+        onClick={productOnClick} 
+        key={index}> 
         <ProductImage src={product.image}/>
         <ProductDetail>
           <Header 

@@ -13,3 +13,8 @@ class ProductSerializer(serializers.ModelSerializer):
       'isAvailable',
       'seller'
       )
+    extra_kwargs = {
+      'isAvailable':{'required':False},
+      'seller':{'read_only':True,'required':False},
+    }
+    

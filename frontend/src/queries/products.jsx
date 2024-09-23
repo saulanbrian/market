@@ -87,3 +87,32 @@ export const useRemoveProductsFromCart = () => {
     }
   })
 }
+
+
+export const useCreateProduct = () => {
+  return useMutation({
+    mutationKey:['my-products'],
+    mutationFn:async(formData) => {
+      const res = await api.post('products/sell',
+        formData, 
+        {
+          headers:{
+            'Content-Type':'multipart/form-data'
+          }
+        }
+      )
+      return res.data
+    }
+  })
+}
+
+
+export const useGetMyProducts = () => {
+  return useQuery({
+    queryKey:['my-products'],
+    queryFn:async() => {
+      const res = await api.get('user/products')
+      return res.data
+    }
+  })
+}
