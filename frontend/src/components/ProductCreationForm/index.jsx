@@ -7,8 +7,8 @@ import {
 } from '@mui/material'
 
 import { useCreateProduct } from '../../queries/products'
-import { useNavigate } from 'react'
-
+import { useQueryClient } from '@tanstack/react-query'
+import { useEffect,useCallback } from 'react'
 
 export default function ProductCreationForm({onClick}){
   
@@ -17,7 +17,7 @@ export default function ProductCreationForm({onClick}){
     status
   } = useCreateProduct()
   
-  const navigate = useNavigate()
+  const client = useQueryClient()
   
   const handleSubmit = useCallback((e) => {
     e.preventDefault()
@@ -27,7 +27,10 @@ export default function ProductCreationForm({onClick}){
   
   
   useEffect(() => {
-    status === 'success' && navigate('/dashboard/my-products')
+    if(status === 'success') {
+      client.invalidateQueries(['my-products'])
+      onClick()
+    }
   },[status])
   
   return (

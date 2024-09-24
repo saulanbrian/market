@@ -32,9 +32,10 @@ const MainBox = styled(Box)(({theme}) => ({
   display:'flex',
   justifyContent:'center',
   alignItems:'center',
-  width:'100vw',
+  maxidth:'100vw',
   flexWrap:'wrap',
-  gap:8
+  gap:8,
+  overflow:'hidden'
 }))
 
 

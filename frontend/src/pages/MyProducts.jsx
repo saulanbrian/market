@@ -47,8 +47,7 @@ export default function MyProducts() {
     <Box>
       { showForm && (
         <ProductCreationForm onClick={() => setShowForm(false)}/>
-        ) 
-      }
+      )}
       <Box sx={{width:'100%',display:'flex',}}>
         <Button 
           onClick={() => setShowForm(true)}

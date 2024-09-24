@@ -23,7 +23,6 @@ import ProductDetail from './pages/ProductDetail'
 import Orders from './pages/Orders'
 import Cart from './pages/Cart'
 import OrderSummary from './pages/OrderSummary'
-import SellingPage from './pages/SellingPage'
 import MyProducts from './pages/MyProducts'
 import Dashboard from './pages/Dashboard'
 
@@ -71,10 +70,6 @@ const router = createBrowserRouter([
     {
       path:'order-summary',
       element:<Private><OrderSummary /></Private>
-    },
-    {
-      path:'sell',
-      element:<Private><SellingPage/></Private>
     },
     ]
   },

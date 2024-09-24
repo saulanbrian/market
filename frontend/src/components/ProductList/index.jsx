@@ -31,7 +31,7 @@ const StyledPaper = styled(Paper)(({theme}) => ({
 
 const ProductDetail = styled(Box)(({theme}) => ({
   display:'flex',
-  width:'100%',
+  flexGrow:1,
   padding:4,
   overflow:'hidden',
   flexDirection:'column',
