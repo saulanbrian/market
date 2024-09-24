@@ -1,13 +1,16 @@
 import {
-  Box
+  Box,
+  Button
 } from '@mui/material'
 
 import { styled } from '@mui/system'
 
 import ProductList from '../components/ProductList'
+import ProductCreationForm from '../components/ProductCreationForm'
 
 import { useGetMyProducts } from '../queries/products'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 
 const StyledProductList = styled(ProductList)(({theme}) => ({
@@ -16,10 +19,13 @@ const StyledProductList = styled(ProductList)(({theme}) => ({
   alignItems:'center',
   flexDirection:'column',
   gap:4,
+  width:'100%',
   '& > *':{
     padding:8
   }
 }))
+
+
 
 export default function MyProducts() {
   
@@ -29,6 +35,7 @@ export default function MyProducts() {
     success,
     error
   } = useGetMyProducts()
+  const [showForm,setShowForm] = useState(false)
   
   const navigate = useNavigate()
   
@@ -38,6 +45,17 @@ export default function MyProducts() {
   
   return (
     <Box>
+      { showForm && (
+        <ProductCreationForm onClick={() => setShowForm(false)}/>
+        ) 
+      }
+      <Box sx={{width:'100%',display:'flex',}}>
+        <Button 
+          onClick={() => setShowForm(true)}
+          sx={{marginLeft:'auto',marginRight:4}}>
+          new
+        </Button>
+      </Box>
       { isLoading? <p>loading...</p>
         : data? (
           <StyledProductList 
