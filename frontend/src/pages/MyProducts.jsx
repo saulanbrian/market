@@ -22,6 +22,9 @@ const StyledProductList = styled(ProductList)(({theme}) => ({
   width:'100%',
   '& > *':{
     padding:8
+  },
+  [theme.breakpoints.up('md')]:{
+    maxWidth:400
   }
 }))
 

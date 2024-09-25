@@ -35,7 +35,9 @@ const MainBox = styled(Box)(({theme}) => ({
   maxidth:'100vw',
   flexWrap:'wrap',
   gap:8,
-  overflow:'hidden'
+  overflow:'hidden',
+  height:'100%',
+  padding:4
 }))
 
 
@@ -69,7 +71,7 @@ export default function Dashboard(){
         ))
       ): (
         <Slide direction='left' in>
-          <Box sx={{width:'100%'}}>
+          <Box sx={{width:'100%',}}>
             <Outlet />
           </Box>
         </Slide>
