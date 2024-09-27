@@ -46,7 +46,7 @@ const Header = styled(ListItemText)(({theme}) => ({
     whiteSpace:'nowrap',
     width:'100%',
   },
-  '& .MuiListItemText-secondary':{
+  '& .MuiListItemText-primary':{
     overflow:'hidden',
     textOverflow:'ellipsis',
     whiteSpace:'nowrap',

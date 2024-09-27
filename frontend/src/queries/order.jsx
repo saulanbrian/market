@@ -20,7 +20,7 @@ export const usePlaceOrder = () => {
   const client = useQueryClient()
   
   return useMutation({
-    mutationFn:['my-orders'],
+    mutationKey:['my-orders'],
     mutationFn:async(products) => {
       const res = await api.post('orders/place',{
         products:products})

@@ -60,7 +60,7 @@ export default function Dashboard(){
   
   return (
     <MainBox>
-      <StyledBreadcrumbs path={path}/>
+      <StyledBreadcrumbs/>
       { path?.length === 1? (
         dashboardRoutes.map((route,index) => (
           <ButtonBase key={index}>
