@@ -8,6 +8,8 @@ import {
 
 import { useNavigate } from 'react-router-dom'
 import { useAddProductToCart } from '../../../queries/products'
+import { useCartContext } from '../../../features/cart/context'
+import { useEffect } from 'react'
 
 
 export default function ActionDrawer({open,onClose,productId}){
@@ -18,6 +20,8 @@ export default function ActionDrawer({open,onClose,productId}){
     error, 
     isPending
   } = useAddProductToCart()
+  
+  const navigate = useNavigate()
   
   function handleAddToCartClick(){
     onClose()

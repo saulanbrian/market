@@ -34,7 +34,9 @@ export default function Product(props){
     description, 
     image, 
     isAvailable, 
-    price
+    price,
+    className,
+    disableInteractiviy
   } = props;
   
   const onSmallScreen = useMediaQuery(theme => theme.breakpoints.down('sm'))
@@ -87,8 +89,9 @@ export default function Product(props){
       <ButtonBase>
         <StyledCard 
           onClick={handleClick}
-          onTouchStart={handleTouchStart} 
-          onTouchEnd={handleTouchEnd}>
+          onTouchStart={!disableInteractiviy && handleTouchStart} 
+          onTouchEnd={handleTouchEnd}
+          className={className}>
           <StyledCardMedia 
             loading='lazy'
             src={image} 

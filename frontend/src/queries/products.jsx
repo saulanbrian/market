@@ -116,3 +116,17 @@ export const useGetMyProducts = () => {
     }
   })
 }
+
+
+export const useGetSellerProducts = (id) => {
+  return useQuery({
+    queryKey:['seller',id,'products'],
+    queryFn:async() => {
+      const res = await api.get(`user/${id}/products`)
+      return res.data
+    },
+    onSuccess:(data) => {
+      console.log('success')
+    }
+  })
+}
