@@ -12,7 +12,6 @@ const StyledProduct = styled(Product)(({theme}) => ({
   display:'flex',
   flexDirection:'column',
   width:150,
-  height:'100%',
   '& > *':{
     flex:1
   },

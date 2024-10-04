@@ -43,11 +43,13 @@ const router = createBrowserRouter([
     },
     {
       path:'marketplace',
-      element:<Marketplace />
-    },
-    {
-      path:'product/:id',
-      element:<ProductDetail />
+      element:<Marketplace />,
+      children:[
+        {
+          path:'product/:id',
+          element:<ProductDetail />
+        },
+      ]
     },
     {
       path:'dashboard',
@@ -84,7 +86,18 @@ const router = createBrowserRouter([
   }
 ])
 
-const theme = createTheme()
+const theme = createTheme({
+  palette:{
+    primary:{
+      main:'#06D6A0',
+      light:'#38a88a'
+    },
+    secondary:{
+      main:'#FFFCF9'
+    }
+  }
+})
+
 const client = new QueryClient()
 
 function App() {

@@ -46,7 +46,7 @@ export default function Product(props){
   const [holdDuration,setHoldDuration] = useState(0)
   
   const handleClick = useCallback(() => {
-    navigate('/product/' + id)
+    navigate('/marketplace/product/' + id)
   },[id])
   
   const handleTouchStart = useCallback((e) => {

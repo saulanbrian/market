@@ -34,12 +34,10 @@ export default function DynamicMenu(){
   
   return (
     <>
-    <StyledIconButton color='inherit' onClick={handleOpen}>
+    <StyledIconButton color='secondary' onClick={handleOpen}>
       <MenuSharpIcon />
     </StyledIconButton>
-    <NavigationDrawer 
-          onClose={handleClose}
-          open={open}/>
+    {open && <NavigationDrawer onClose={handleClose} open={open}/>}
     </>
   )
 }
