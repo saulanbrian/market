@@ -55,7 +55,7 @@ export default function NavigationDrawer({open,onClose}){
     <StyledDrawer open={open} onClose={onClose}>
       <List disablePadding>
       { mainRoutes.map(({name,route,icon},index) => (
-        <ListItem disableGutters disablePadding>
+        <ListItem disableGutters disablePadding key={name}>
           <StyledNavigationLink 
             startIcon={icon} 
             name={name} 
