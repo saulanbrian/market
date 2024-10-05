@@ -27,15 +27,16 @@ export const usePlaceOrder = () => {
       return res.data
     },
     onSuccess:(placedOrders) => {
-      client.setQueryData(['my-cart'], prev => {
-        return [
-        ...prev.filter(orderOnCart => (
-            placedOrders.some(order => order.id === orderOnCart.id?
-              false: true
-            )
-          ))
-        ]
-      })
+      client.invalidateQueries(['my-cart'])
+      // client.setQueryData(['my-cart'], prev => {
+      //   return [
+      //   ...prev.filter(orderOnCart => (
+      //       placedOrders.some(order => order.id === orderOnCart.id?
+      //         false: true
+      //       )
+      //     ))
+      //   ]
+      // })
     }
   })
 }

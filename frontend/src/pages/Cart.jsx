@@ -16,11 +16,11 @@ import { useCartContext } from '../features/cart/context'
 import { useState, useEffect } from 'react'
 
 import ProductOnCart from '../components/ProductOnCart' 
-import CartActions from './components/CartAction'
 import PaymentSharpIcon from '@mui/icons-material/PaymentSharp';
+import { FloatingActions, CartDetailAndActionBox } from './components/Cart'
 
 
-const ProductContainer = styled(Box)(({theme}) => ({
+const ProductListContainer = styled(Box)(({theme}) => ({
   display:'flex',
   flexDirection:'column',
   padding:8,
@@ -32,14 +32,24 @@ const ProductContainer = styled(Box)(({theme}) => ({
 }))
 
 
+const MainBox = styled(Box)(({theme}) => ({
+  maxWidth:'100vw',
+  display:'flex',
+  '& > *':{
+    flex:1
+  }
+}))
+
+
 
 export default function Cart(){
   
-  const { data, isLoading, error } = useGetProductsOnCart()
-  
   const {
     selectedProducts, 
-    setSelectedProducts
+    setSelectedProducts,
+    selectedProductsTotalPrice,
+    fetchingProducts,
+    products
   } = useCartContext()
   
   const navigate = useNavigate()
@@ -50,10 +60,7 @@ export default function Cart(){
     selectedProducts.length >= 1? setToggleButton(true): setToggleButton(false)
   },[selectedProducts])
   
-  useEffect(() => {
-    data && setSelectedProducts([])
-  },[data])
-  
+
   function handleSelect(id){
     setSelectedProducts((prev) => {
       return prev.some(productId => productId === id)? (
@@ -63,26 +70,35 @@ export default function Cart(){
   }
   
   return (
-    <Box sx={{display:'flex',justifyContent:'center'}}>
-      <ProductContainer>
-        { !!data? (
-          data?.length >= 1?(
-            data.map(product => (
-              <ProductOnCart 
-                {...product} 
-                key={product.id}
-                onClick={() => navigate('/product/' + product.id)} 
-                selectFn={handleSelect}
-                selected={selectedProducts.some(id => id === product.id)}/>
-            ))
-          ): <p>no products on cart</p>
-        ): isLoading? (
-          <p>loading...</p>
+    <MainBox sx={{display:'flex',justifyContent:'center'}}>
+      <ProductListContainer>
+        { fetchingProducts? (
+            <p>loading...</p>
+          ): products? (
+
+            products?.length >= 1?(
+              products.map(product => (
+                <ProductOnCart 
+                  {...product} 
+                  key={product.id}
+                  onClick={() => navigate('/product/' + product.id)} 
+                  selectFn={handleSelect}
+                  selected={selectedProducts.some(id => id === product.id)}/>
+              ))
+            ): <p>no products on cart</p>
+          
+        
         ): error && (
           <p>an errror has occured</p>
         ) }
-      </ProductContainer>
-      <CartActions selectedProducts={selectedProducts}/>
-    </Box>
+      </ProductListContainer>
+
+      { onSmallScreen? (
+        <FloatingActions />
+      ): (
+        <CartDetailAndActionBox />
+      )}
+      
+    </MainBox>
   )
 }

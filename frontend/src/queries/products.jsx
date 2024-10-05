@@ -37,7 +37,9 @@ export const useGetProductsOnCart = () =>{
     queryFn:async() => {
       const res = await api.get('user_cart/')
       return res.data
-    }
+    },
+    cacheTime:10000,
+    staleTime:10000
   })
 }
 

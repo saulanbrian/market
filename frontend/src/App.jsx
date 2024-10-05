@@ -61,17 +61,25 @@ const router = createBrowserRouter([
         },
         {
           path:'cart',
-          element:<Private><Cart /></Private>
+          element:(
+            <Private>
+              <CartContextProvider>
+                <Cart />
+              </CartContextProvider>
+            </Private>
+          ),
+          children:[
+            {
+              path:'order-summary',
+              element:<Private><OrderSummary /></Private>
+            },
+          ]
         },
         {
           path:'my-products',
           element:<Private><MyProducts/></Private>
         }
       ]
-    },
-    {
-      path:'order-summary',
-      element:<Private><OrderSummary /></Private>
     },
     ]
   },
@@ -105,9 +113,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
         <QueryClientProvider client={client}>
-          <CartContextProvider>
-            <RouterProvider router={router} />
-          </CartContextProvider>
+          <RouterProvider router={router} />
         </QueryClientProvider>
       </AuthContextProvider>
      </ThemeProvider>
