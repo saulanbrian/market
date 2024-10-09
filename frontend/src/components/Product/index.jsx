@@ -5,6 +5,10 @@ import {
   Typography,
   ButtonBase,
   useMediaQuery,
+  Skeleton,
+  Box,
+  ListItemText,
+  Paper
 } from '@mui/material'
 
 import ActionDrawer from './ActionDrawer'
@@ -12,19 +16,34 @@ import HoldableComponent from '../HoldableComponent'
 
 import { styled } from '@mui/material'
 
-import React, { useState,useEffect, useCallback } from 'react'
+import React, { useState,useEffect, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { display, height, maxHeight, textAlign, width } from '@mui/system'
 
-
-
-const StyledCardMedia = styled(CardMedia)(({theme}) => ({
-  objectFit:'contain',
-  width:'100%',
-}))
-
-
-const StyledCard = styled(Card)(({theme}) => ({
-  border:'1px solid black',
+const StyledPaper = styled(Paper)(({theme}) => ({
+  background:theme.palette.secondary.main,
+  height:260,
+  width:180,
+  overflow:'hidden',
+  '& img':{
+    height:'75%',
+    width:'100%',
+    objectFit:'contained'
+  },
+  '& #product-info-container':{
+    height:'25%',
+    flexGrow:1,
+    background:theme.palette.secondary.dark,
+    padding:4,
+    textAlign:'start',
+    '& > *':{
+      color:'inherit',
+      whiteSpace:'nowrap',
+      overflow:'hidden',
+      textOverflow:'ellipsis',
+      padding:2
+    }
+  }
 }))
 
 
@@ -45,6 +64,8 @@ export default function Product(props){
   const navigate = useNavigate()
   const [open,setOpen] = useState(false)
   const [imageLoaded,setImageLoaded] = useState(false)
+
+  const imageIsShown = useMemo(() => { return imageLoaded },[imageLoaded])
   
   const handleClick = useCallback(() => {
     navigate('/marketplace/product/' + id)
@@ -57,20 +78,14 @@ export default function Product(props){
           holdSec={8}
           holdCallback={() => setOpen(true)}
           component={React.Fragment}>
-          <StyledCard 
-            onClick={handleClick}
-            className={className}>
-            <StyledCardMedia 
-              loading='lazy'
-              src={image} 
-              component='img'
-              onLoad={() => setImageLoaded(true)} 
-              sx={{ display: imageLoaded ? 'block' : 'none' }}/>
-            <CardContent>
-            <Typography variant='h6'>{ name }</Typography>
-            <p>${price}</p>
-            </CardContent>
-          </StyledCard>
+          <StyledPaper onClick={handleClick}>
+            { !imageIsShown && <Skeleton height={'75%'} variant='rectangular' animation='wave'/>}
+            <img src={image} onLoad={() => { setImageLoaded(true) }} style={{display: imageIsShown? 'block': 'none'}} />
+            <div id='product-info-container'>
+              <Typography sx={{padding:0}} variant='subtitle1'>{name}</Typography>
+              <Typography sx={{padding:0}} variant='caption'>${price}</Typography>
+            </div>
+          </StyledPaper>
         </HoldableComponent>
       </ButtonBase>
       { open && (

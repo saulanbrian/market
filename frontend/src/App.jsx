@@ -101,7 +101,8 @@ const theme = createTheme({
       light:'#38a88a'
     },
     secondary:{
-      main:'#FFFCF9'
+      main:'#FFFCF9',
+      dark:'#FFF5EB'
     }
   }
 })

@@ -8,7 +8,7 @@ from .models import Product
 from .serializers import ProductSerializer
 
 class ProductPagination(PageNumberPagination):
-  page_size = 20
+  page_size = 30
   
   
 class ProductListAPIView(ListAPIView):
