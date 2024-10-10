@@ -34,6 +34,7 @@ export default function HoldableComponent({children,holdCallback,holdSec}){
 
     return (
         <Box 
+            
             onTouchStart={() => setTouchStarted(true)} 
             onTouchEnd={() => setTouchStarted(false)}> 
             {children} 

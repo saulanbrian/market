@@ -53,7 +53,7 @@ export default function Navigation(){
   return (
     <React.Fragment>
       <StyledAppBar>
-        <Toolbar sx={{'& :nth-of-type(3)':{marginRight:'auto'},padding:'4px'}}>
+        <Toolbar sx={{'& :nth-of-type(3)':{marginRight:'auto'},padding:'4px',gap:'8px'}}>
           <DynamicMenu />
           {mainRoutes.map(({name,route,icon},index) => (
               <StyledNavigationLink

@@ -4,27 +4,30 @@ import { getDataLength } from '../utils'
 import { useEffect } from 'react'
 
 import { Box, useMediaQuery } from '@mui/material'
-import { display, height, maxWidth, padding, styled } from '@mui/system'
+import { display, height, margin, maxWidth, padding, styled, width } from '@mui/system'
 import Masonry from '@mui/lab/Masonry'
 
 import Product from '../components/Product'
 import { Outlet, useLocation } from 'react-router-dom'
 
 
-const StyledBox = styled(Box)(({theme}) => ({
-  height: '100vh',
-}))
-
-
-const InfiniteScrollStyle = {
+const StyleInfiniteScroll = styled(InfiniteScrollComponent)(({theme}) => ({
   display:'flex',
+  flexWrap:'wrap',
+  backgroundColor:theme.palette.secondary.main,
+  justifyContent:'center',
   padding:16,
   gap:8,
-  flexWrap:'wrap',
   alignItems:'center',
-  justifyContent:'center',
-  height:'100vh'
-}
+  [theme.breakpoints.up('md')]:{
+    height:'100vh'
+  },
+  [theme.breakpoints.down('sm')]:{
+    '& > *':{
+
+    }
+  }
+})) 
 
 
 export default function Marketplace() {
@@ -47,25 +50,23 @@ export default function Marketplace() {
   },[data])
   
   return location.pathname.split('/').filter(str => !!str).length <=1? (
-    <StyledBox id='scrollableDiv'>
-      <InfiniteScrollComponent
-        style={InfiniteScrollStyle}
-        dataLength={data? getDataLength(data): 0}
-        hasMore={hasNextPage}
-        next={fetchNextPage}
-        loader={<p>loading...</p>}
-        endMessage={<p>no more products</p>}
-        scrollableTarget={onMobile && 'scrollableDiv'}>
-        { data? data?.pages?.map(page => {
-          return page.results.map(product => (
-            <Product key={product.id} {...product} />
-          ))
-        }): isFetching? (
-          <p>loading....</p>
-        ): errror && (
-          <p>an error has occured</p>
-        )}
-      </InfiniteScrollComponent>
-    </StyledBox>
+    <StyleInfiniteScroll
+      dataLength={data? getDataLength(data): 0}
+      hasMore={hasNextPage}
+      next={fetchNextPage}
+      loader={<p>loading...</p>}
+      endMessage={<p>no more products</p>}
+      scrollableTarget={onMobile && 'scrollableDiv'}>
+      { data? data?.pages?.map(page => {
+        return page.results.map(product => (
+          <Product key={product.id} {...product} />
+        ))
+      }): isFetching? (
+        <p>loading....</p>
+      ): errror && (
+        <p>an error has occured</p>
+      )}
+    </StyleInfiniteScroll>
   ): <Outlet />
 }
+
