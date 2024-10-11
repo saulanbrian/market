@@ -3,7 +3,7 @@ import {
   Button
 } from '@mui/material'
 
-import { styled } from '@mui/system'
+import { positions, styled } from '@mui/system'
 
 import ProductList from '../components/ProductList'
 import ProductCreationForm from '../components/ProductCreationForm'
@@ -14,20 +14,16 @@ import { useState } from 'react'
 
 
 const StyledProductList = styled(ProductList)(({theme}) => ({
-  padding:'4px 8px',
-  display:'flex',
-  alignItems:'center',
-  flexDirection:'column',
-  gap:4,
-  width:'100%',
-  '& > *':{
-    padding:8
-  },
-  [theme.breakpoints.up('md')]:{
-    maxWidth:400
-  }
+  maxWidth:'100%',
+  padding:8
 }))
 
+
+const ActionContainer = styled(Box)(({theme}) => ({
+  display:'flex',
+  flexDirection:'row-reverse',
+  padding:8
+}))
 
 
 export default function MyProducts() {
@@ -43,28 +39,22 @@ export default function MyProducts() {
   const navigate = useNavigate()
   
   function handleClick(product){
-    product && navigate('/product/' + product.id)
+    product && navigate('/marketplace/product/' + product.id)
   }
   
   return (
-    <Box>
-      { showForm && (
-        <ProductCreationForm onClick={() => setShowForm(false)}/>
-      )}
-      <Box sx={{width:'100%',display:'flex',}}>
-        <Button 
-          onClick={() => setShowForm(true)}
-          sx={{marginLeft:'auto',marginRight:4}}>
-          new
-        </Button>
-      </Box>
-      { isLoading? <p>loading...</p>
-        : data? (
-          <StyledProductList 
-            products={data}
-            productOnClick={handleClick}/>
-        ): error && <p>an error had occured</p>
-      }
+    <Box sx={{maxWidth:'100vw'}}>
+    { showForm && <ProductCreationForm onClick={() => setShowForm(false)}/> }
+    <ActionContainer>
+      <Button variant='outlined' onClick={() => setShowForm(true)}>
+        new
+      </Button>
+    </ActionContainer>
+    { isLoading? <p>loading...</p> : data? (
+      <StyledProductList products={data} productOnClick={handleClick} />
+      ): error && <p>an error had occured</p>
+    }
     </Box>
   )
 }
+

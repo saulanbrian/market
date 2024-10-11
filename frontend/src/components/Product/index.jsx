@@ -78,7 +78,7 @@ export default function Product(props){
           holdSec={8}
           holdCallback={() => setOpen(true)}
           component={React.Fragment}>
-          <StyledPaper onClick={handleClick}>
+          <StyledPaper onClick={handleClick} elevation={3}>
             { !imageIsShown && <Skeleton height={'75%'} variant='rectangular' animation='wave'/>}
             <img src={image} onLoad={() => { setImageLoaded(true) }} style={{display: imageIsShown? 'block': 'none'}} />
             <div id='product-info-container'>

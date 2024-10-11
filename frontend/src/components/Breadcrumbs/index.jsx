@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@mui/system'
 import { useCallback } from 'react'
+import { Typography } from '@mui/material'
 
 const StyledDiv =  styled('div')(({theme}) => ({
   padding:8,
@@ -31,7 +32,13 @@ export default function Breadcrumbs({className}){
   return (
     <StyledDiv className={className}>
       { path.map((route,index) => (
-        <h4 key={index} onClick={() => handleClick(route)}>{route}/ </h4>
+        <Typography 
+          key={index}
+          variant='button'
+          onClick={() => handleClick(route)}
+          sx={{ cursor:'pointer'}}>
+        &nbsp;{route} / 
+        </Typography>
       )) }
     </StyledDiv>
   )

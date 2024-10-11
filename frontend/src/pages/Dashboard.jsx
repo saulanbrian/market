@@ -17,6 +17,7 @@ import {
 } from 'react-router-dom'
 
 import { dashboardRoutes  } from '../constants/index'
+import React from 'react'
 
 
 const DashBoardCard = styled(Paper)(({theme}) => ({
@@ -32,17 +33,17 @@ const MainBox = styled(Box)(({theme}) => ({
   display:'flex',
   justifyContent:'center',
   alignItems:'center',
-  maxidth:'100vw',
+  maxWidth:'100vw',
   flexWrap:'wrap',
   gap:8,
   overflow:'hidden',
   height:'100%',
-  padding:4
 }))
 
 
 const StyledBreadcrumbs = styled(Breadcrumbs)(({theme}) => ({
   width:'100%',
+  padding:16,
 }))
 
 
@@ -71,7 +72,7 @@ export default function Dashboard(){
         ))
       ): (
         <Slide direction='left' in>
-          <Box sx={{width:'100%',}}>
+          <Box sx={{width:'96vw',padding:'4px'}}>
             <Outlet />
           </Box>
         </Slide>
