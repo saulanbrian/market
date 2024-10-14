@@ -6,7 +6,6 @@ import {
 
 import { display, height, maxHeight, styled, useMediaQuery } from '@mui/system'
 
-import DetailedProduct from '../components/DetailedProduct'
 import ProductsFromTheSameSeller  from '../components/ProductsFromTheSameSeller'
 
 import { useGetProductDetail } from '../queries/products'
