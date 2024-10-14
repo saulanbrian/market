@@ -71,6 +71,11 @@ export default function Product(props){
     navigate('/marketplace/product/' + id)
   },[id])
 
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true)
+    console.log('image loaded')
+  },[])
+
   return (
     <React.Fragment>
       <ButtonBase> 
@@ -80,7 +85,7 @@ export default function Product(props){
           component={React.Fragment}>
           <StyledPaper onClick={handleClick} elevation={3}>
             { !imageIsShown && <Skeleton height={'75%'} variant='rectangular' animation='wave'/>}
-            <img src={image} onLoad={() => { setImageLoaded(true) }} style={{display: imageIsShown? 'block': 'none'}} />
+            <img src={image} onLoad={handleImageLoad} style={{display: imageIsShown? 'block': 'none'}} />
             <div id='product-info-container'>
               <Typography sx={{padding:0}} variant='subtitle1'>{name}</Typography>
               <Typography sx={{padding:0}} variant='caption'>${price}</Typography>

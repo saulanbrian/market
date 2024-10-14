@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Drawer,
+  Typography,
   useMediaQuery
 } from '@mui/material'
 
@@ -9,7 +10,7 @@ import { styled } from '@mui/system'
 
 
 const ImageBox = styled(Box)(({theme}) => ({
-  width:'40%',
+  width:'40%',  
   '& > img':{
     objectFit:'contain',
     height:'100%',
@@ -23,6 +24,9 @@ const ImageBox = styled(Box)(({theme}) => ({
 
 const MainBox = styled(Box)(({theme}) => ({
   display:'flex',
+  padding:32,
+  maxWidth:'98vw',
+  overflow:'hidden',
   [theme.breakpoints.down('sm')]:{
     flexWrap:'wrap'
   }
@@ -30,7 +34,15 @@ const MainBox = styled(Box)(({theme}) => ({
 
 
 const DetailContainer = styled(Box)(({theme}) => ({
-  
+  padding:36,
+  display:'flex',
+  overflow:'hidden',
+  marginRight:50,
+  background:'blue',
+  flexDirection:'column',
+  '& :nth-child(3)':{
+    marginTop:'auto'
+  }
 }))
 
 
@@ -91,9 +103,8 @@ export default function DetailedProduct(props){
         <img src={image}/>
       </ImageBox>
       <DetailContainer>
-        <p>{name}</p>
-        <p>{description}</p>
-        <p>available: {isAvailable? 'yes': 'no'}</p>
+        <Typography fontSize={onSmallScreen? 30: 50}> imahe ad dw q sadsa   asdasdadas dasdassa dsa</Typography>
+        <Typography fontSize={onSmallScreen? 16: 24} color='textSecondary'>{description}</Typography>
         { onSmallScreen? (
           <ActionDrawer />
         ): <ActionButtons />

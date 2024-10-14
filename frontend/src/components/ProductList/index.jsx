@@ -36,6 +36,7 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   gap:8,
   width:280,
   cursor:'pointer',
+  background:theme.palette.secondary.dark,
   [theme.breakpoints.down('md')]:{
     width:'45%',
     flexGrow:1
@@ -64,7 +65,8 @@ const ImageContainer = styled(Box)(({theme}) => ({
 const StyledTypography = styled(Typography)(({theme}) => ({
   whiteSpace:'nowrap',
   textOverflow:'ellipsis',
-  overflow:'hidden'
+  overflow:'hidden',
+  color:theme.palette.primary.dark
 }))
 
 
@@ -93,7 +95,7 @@ export default function ProductList(props){
       <StyledPaper 
         onMouseEnter={() => handleMouseEnter(product.id)}
         onMouseLeave={handleMouseLeave}
-        elevation={elevatedProduct == product.id? 20: 2}
+        elevation={elevatedProduct == product.id? 20: 4}
         id={product.id} 
         onClick={() => productOnClick(product)} 
         key={index}> 
@@ -102,10 +104,11 @@ export default function ProductList(props){
           <img src={product.image} width={100} onLoad={handleImageLoad}/>
         </ImageContainer>
         <ProductDetail>
-          <StyledTypography variant='body1' sx={{fontSize:18,textAlign:'right'}}>{product.name}</StyledTypography>
-          <Typography 
-            sx={{marginTop:'auto',textAlign:'right',fontSize:20}} 
-            variant='button' >${product.price}</Typography>
+          <StyledTypography variant='h6' sx={{textAlign:'right'}} color='textSecondary'>{product.name}</StyledTypography>
+          <StyledTypography 
+            color='primary'
+            sx={{marginTop:'auto',textAlign:'right'}} 
+            variant='subtitle1' >${product.price}</StyledTypography>
         </ProductDetail>
       </StyledPaper>
     ) )}

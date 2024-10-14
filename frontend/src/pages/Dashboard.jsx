@@ -71,10 +71,8 @@ export default function Dashboard(){
           </ButtonBase>
         ))
       ): (
-        <Slide direction='left' in>
-          <Box sx={{width:'96vw',padding:'4px'}}>
-            <Outlet />
-          </Box>
+        <Slide direction='left' in sx={{width:'100vw'}}>
+          <Box width={'100%'}><Outlet /></Box>
         </Slide>
       )
       }
